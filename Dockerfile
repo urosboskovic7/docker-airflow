@@ -28,6 +28,8 @@ ENV LC_MESSAGES en_US.UTF-8
 # Disable noisy "Handling signal" log messages:
 # ENV GUNICORN_CMD_ARGS --log-level WARNING
 
+COPY keycloak_auth.py /usr/local/lib/python3.7/site-packages/airflow/contrib/auth/backends/keycloak_auth.py
+
 RUN set -ex \
     && buildDeps=' \
         freetds-dev \
