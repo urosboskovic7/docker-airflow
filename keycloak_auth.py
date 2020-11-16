@@ -104,7 +104,7 @@ class GHEAuthBackend(object):
             base_url='http://127.0.0.1:5000/',
             request_token_url=None,
             access_token_method='POST',
-            access_token_url='http://127.0.0.1:5000/auth/realms/airflow-demo/protocol/openid-connect/token'
+            access_token_url='http://127.0.0.1:5000/auth/realms/airflow-demo/protocol/openid-connect/token',
             authorize_url='http://127.0.0.1:5000/auth/realms/airflow-demo/account'
 
         self.login_manager.user_loader(self.load_user)
