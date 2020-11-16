@@ -121,7 +121,7 @@ class GHEAuthBackend(object):
             next=request.args.get('next') or request.referrer or None))
 
     def get_ghe_user_profile_info(self, ghe_token):
-        userinfo_url='http://127.0.0.1:5000/auth/realms/airflow-demo/protocol/openid-connect/userinfo'])
+        userinfo_url='http://127.0.0.1:5000/auth/realms/airflow-demo/protocol/openid-connect/userinfo'
         resp=self.ghe_oauth.get(userinfo_url,token=(ghe_token,''))
 
 
