@@ -75,6 +75,7 @@ RUN set -ex \
 
 COPY script/entrypoint.sh /entrypoint.sh
 COPY config/airflow.cfg ${AIRFLOW_USER_HOME}/airflow.cfg
+COPY keycloak_auth.py /usr/local/lib/python3.7/site-packages/airflow/contrib/auth/backends/keycloak_auth.py
 
 RUN chown -R airflow: ${AIRFLOW_USER_HOME}
 
