@@ -78,17 +78,17 @@ class AuthenticationError(Exception):
 class GHEAuthBackend(object):
 
     def __init__(self):
-        self.ghe_host = get_config_param('host')
+        #self.ghe_host = get_config_param('host')
         self.login_manager = flask_login.LoginManager()
         self.login_manager.login_view = 'airflow.login'
         self.flask_app = None
         self.ghe_oauth = None
 
-    def ghe_api_route(self, leaf):
+#     def ghe_api_route(self, leaf):
 
-        return '/'.join(['http:/',
-                         self.ghe_host,
-                         'auth/realms/airflow-demo/protocol/openid-connect'])
+#         return '/'.join(['http:/',
+#                          self.ghe_host,
+#                          'auth/realms/airflow-demo/protocol/openid-connect'])
 
     def init_app(self, flask_app):
         self.flask_app = flask_app
@@ -101,15 +101,11 @@ class GHEAuthBackend(object):
             consumer_secret=get_config_param('client_secret'),
             # need read:org to get team member list
             request_token_params={'scope': 'openid'},
-            base_url=self.ghe_host,
+            base_url='http://127.0.0.1:5000/',
             request_token_url=None,
             access_token_method='POST',
-            access_token_url=''.join(['http://',
-                                      self.ghe_host,
-                                      '/auth/realms/airflow-demo/protocol/openid-connect/token']),
-            authorize_url=''.join(['http://',
-                                   self.ghe_host,
-                                   '/auth/realms/airflow-demo/protocol/openid-connect/auth']))
+            access_token_url='http://127.0.0.1:5000/auth/realms/airflow-demo/protocol/openid-connect/token'
+            authorize_url='http://127.0.0.1:5000/auth/realms/airflow-demo/protocol/openid-connect/auth'
 
         self.login_manager.user_loader(self.load_user)
 
@@ -125,7 +121,7 @@ class GHEAuthBackend(object):
             next=request.args.get('next') or request.referrer or None))
 
     def get_ghe_user_profile_info(self, ghe_token):
-        userinfo_url=''.join(['http://', self.ghe_host,'/auth/realms/airflow-demo/protocol/openid-connect/userinfo'])
+        userinfo_url='http://127.0.0.1:5000/auth/realms/airflow-demo/protocol/openid-connect/userinfo'])
         resp=self.ghe_oauth.get(userinfo_url,token=(ghe_token,''))
 
 
