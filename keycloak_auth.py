@@ -88,7 +88,7 @@ class GHEAuthBackend(object):
 
         return '/'.join(['http:/',
                          self.ghe_host,
-                         'auth/realms/brent/protocol/openid-connect'])
+                         'auth/realms/airflow-demo/protocol/openid-connect'])
 
     def init_app(self, flask_app):
         self.flask_app = flask_app
@@ -106,10 +106,10 @@ class GHEAuthBackend(object):
             access_token_method='POST',
             access_token_url=''.join(['http://',
                                       self.ghe_host,
-                                      '/auth/realms/brent/protocol/openid-connect/token']),
+                                      '/auth/realms/airflow-demo/protocol/openid-connect/token']),
             authorize_url=''.join(['http://',
                                    self.ghe_host,
-                                   '/auth/realms/brent/protocol/openid-connect/auth']))
+                                   '/auth/realms/airflow-demo/protocol/openid-connect/auth']))
 
         self.login_manager.user_loader(self.load_user)
 
@@ -125,7 +125,7 @@ class GHEAuthBackend(object):
             next=request.args.get('next') or request.referrer or None))
 
     def get_ghe_user_profile_info(self, ghe_token):
-        userinfo_url=''.join(['http://', self.ghe_host,'/auth/realms/brent/protocol/openid-connect/userinfo'])
+        userinfo_url=''.join(['http://', self.ghe_host,'/auth/realms/airflow-demo/protocol/openid-connect/userinfo'])
         resp=self.ghe_oauth.get(userinfo_url,token=(ghe_token,''))
 
 
