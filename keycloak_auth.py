@@ -33,7 +33,6 @@ from airflow.configuration import AirflowConfigException
 import os
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
-
 _log = logging.getLogger(__name__)
 
 
@@ -76,9 +75,8 @@ class AuthenticationError(Exception):
 
 
 class GHEAuthBackend(object):
-  
-  
-  def __init__(self):
+
+    def __init__(self):
         self.ghe_host = get_config_param('host')
         self.login_manager = flask_login.LoginManager()
         self.login_manager.login_view = 'airflow.login'
@@ -124,7 +122,6 @@ class GHEAuthBackend(object):
             'ghe_oauth_callback',
             _external=True,
             next=request.args.get('next') or request.referrer or None))
-      
 
     def get_ghe_user_profile_info(self, ghe_token):
         userinfo_url=''.join(['http://', self.ghe_host,'/auth/realms/airflow-demo/protocol/openid-connect/userinfo'])
